@@ -13,6 +13,7 @@
 		9FC4A6741FFE5BDE00783F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4A6731FFE5BDE00783F61 /* Assets.xcassets */; };
 		9FC4A6771FFE5BDE00783F61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4A6751FFE5BDE00783F61 /* LaunchScreen.storyboard */; };
 		9FC4A67A1FFE5BDE00783F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4A6791FFE5BDE00783F61 /* main.m */; };
+		9FC4A6831FFE5C2000783F61 /* SDRangeSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4A6821FFE5C2000783F61 /* SDRangeSliderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		9FC4A6761FFE5BDE00783F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FC4A6781FFE5BDE00783F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC4A6791FFE5BDE00783F61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9FC4A6811FFE5C2000783F61 /* SDRangeSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDRangeSliderView.h; sourceTree = "<group>"; };
+		9FC4A6821FFE5C2000783F61 /* SDRangeSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDRangeSliderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		9FC4A6691FFE5BDE00783F61 /* SDRangeSliderView */ = {
 			isa = PBXGroup;
 			children = (
+				9FC4A6801FFE5BFD00783F61 /* SDRangeSliderView */,
 				9FC4A66A1FFE5BDE00783F61 /* AppDelegate.h */,
 				9FC4A66B1FFE5BDE00783F61 /* AppDelegate.m */,
 				9FC4A66D1FFE5BDE00783F61 /* ViewController.h */,
@@ -67,6 +71,15 @@
 				9FC4A6751FFE5BDE00783F61 /* LaunchScreen.storyboard */,
 				9FC4A6781FFE5BDE00783F61 /* Info.plist */,
 				9FC4A6791FFE5BDE00783F61 /* main.m */,
+			);
+			path = SDRangeSliderView;
+			sourceTree = "<group>";
+		};
+		9FC4A6801FFE5BFD00783F61 /* SDRangeSliderView */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4A6811FFE5C2000783F61 /* SDRangeSliderView.h */,
+				9FC4A6821FFE5C2000783F61 /* SDRangeSliderView.m */,
 			);
 			path = SDRangeSliderView;
 			sourceTree = "<group>";
@@ -142,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FC4A6831FFE5C2000783F61 /* SDRangeSliderView.m in Sources */,
 				9FC4A66F1FFE5BDE00783F61 /* ViewController.m in Sources */,
 				9FC4A67A1FFE5BDE00783F61 /* main.m in Sources */,
 				9FC4A66C1FFE5BDE00783F61 /* AppDelegate.m in Sources */,
@@ -218,7 +232,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -267,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
