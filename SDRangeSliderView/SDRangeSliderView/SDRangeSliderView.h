@@ -38,10 +38,10 @@
 /** 最大值，默认100.0(default is 100.0) */
 @property (nonatomic,assign) double maxValue;
 
-/** 左游标按钮初始值(Left cursor button initial value) */
-@property (nonatomic,assign) double leftDefaultValue;
-/** 右游标按钮初始值(Right cursor button initial value) */
-@property (nonatomic,assign) double rightDefaultValue;
+/** 左游标按钮值(Left cursor button value) */
+@property (nonatomic,assign) double leftValue;
+/** 右游标按钮初始值(Right cursor button value) */
+@property (nonatomic,assign) double rightValue;
 
 /** 线高，默认值2(Line height, default value 2) */
 @property (nonatomic,assign) CGFloat lineHeight;

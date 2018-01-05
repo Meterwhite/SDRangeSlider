@@ -10,10 +10,6 @@
 
 @interface SDRangeSliderView()
 
-@property (nonatomic,assign) double leftValue;
-@property (nonatomic,assign) double rightValue;
-
-
 /**
  游标按钮(Button of cursor)
  */
@@ -82,11 +78,11 @@
         self.minValue = 0.0;
         self.offsetOfAdjustLineEnd = 0.0;
         self.offsetOfAdjustLineStart = 0.0;
-        self.leftDefaultValue = self.minValue;
-        self.rightDefaultValue = self.maxValue;
+//        self.leftDefaultValue = self.minValue;
+//        self.rightDefaultValue = self.maxValue;
         self.frame = frame;
-        self.leftValue = self.leftDefaultValue;
-        self.rightValue = self.rightDefaultValue;
+//        self.leftValue = self.leftDefaultValue;
+//        self.rightValue = self.rightDefaultValue;
         [self usingValueAtFront];
     }
     return self;
@@ -241,7 +237,6 @@
 #pragma mark 设置右游标值
 - (void)setRightValue:(double)rightValue
 {
-    
     _rightValue = rightValue;
     
     NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;//总份
@@ -253,11 +248,15 @@
     self.rightCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.rightLine.frame;
-    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue - self.itemSize + self.offsetOfAdjustLineStart;
+    framOfLine.origin.x = framOfButton.origin.x + self.itemRadius;
+    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue - self.itemSize;
     if(self.offsetOfAdjustLineEnd){
         
         framOfLine.origin.x -= self.offsetOfAdjustLineEnd;
         framOfLine.size.width += self.offsetOfAdjustLineEnd;
+    }
+    if(self.offsetOfAdjustLineStart){
+        framOfLine.size.width -= self.offsetOfAdjustLineStart;
     }
     self.rightLine.frame = framOfLine;
 }

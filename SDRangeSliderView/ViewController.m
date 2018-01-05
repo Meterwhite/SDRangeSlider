@@ -19,10 +19,13 @@
     [super viewDidLoad];
     
     SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(0, 100, 300, 50)];
-    
+
     /*
      *打开每个注释观察变化(Open comment to observe the change)
      */
+//    slider.leftValue = 18;
+//    slider.rightValue = 60;
+    
 //    slider.minimumSize = 10;
     
 //    slider.offsetOfAdjustLineStart = -12;//look at viewHierarcy
