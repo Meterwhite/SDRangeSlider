@@ -33,9 +33,9 @@
 
 /** 最小刻度，默认1.0(Minimum scale, default 1.0) */
 @property (nonatomic,assign) double minimumSize;
-/** 最小值，默认0.0(default is 0.0) */
+/** 最小值，默认0.0；使用[update]展示变化(default is 0.0;Use [update] to show changes) */
 @property (nonatomic,assign) double minValue;
-/** 最大值，默认100.0(default is 100.0) */
+/** 最大值，默认100.0；使用[update]展示变化(default is 100.0;Use [update] to show changes) */
 @property (nonatomic,assign) double maxValue;
 
 /** 左游标按钮值(Left cursor button value) */
@@ -46,6 +46,9 @@
 /** 线高，默认值2(Line height, default value 2) */
 @property (nonatomic,assign) CGFloat lineHeight;
 
+
+/** 更新 */
+- (void)update;
 /**
  使用游标的顶部取值，两个游标可以取到相等的值；默认值；(Using the top value of the cursor, two cursors can be obtained equal value; The default value;)
  */
@@ -64,6 +67,7 @@
  调整线条终端的偏移,正数时向中间延伸(Adjust the offset of the end of the line and extend the positive to the middle)
  */
 @property (nonatomic,assign) double offsetOfAdjustLineEnd;
+
 
 
 @property (nonatomic,strong) UIColor* lineColor;

@@ -23,8 +23,12 @@
     /*
      *打开每个注释观察变化(Open comment to observe the change)
      */
-//    slider.leftValue = 18;
-//    slider.rightValue = 60;
+
+//    slider.minValue = 100;
+//    slider.maxValue = 300;
+//    slider.leftValue = 150;
+//    slider.rightValue = 200;
+//    [slider update];
     
 //    slider.minimumSize = 10;
     

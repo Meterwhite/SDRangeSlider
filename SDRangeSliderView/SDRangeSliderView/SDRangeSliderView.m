@@ -39,9 +39,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.itemSize = 30;
-        self.lineHeight = 2;
-        self.minimumSize = 1;
+        _itemSize = 30;
+        _lineHeight = 2;
+        _minimumSize = 1;
         //底部线条
         CGFloat lineY = self.itemRadius-self.lineHeight/2;
         self.backgroundLine = [[UIView alloc] initWithFrame:CGRectMake(self.itemRadius, lineY , CGRectGetWidth(self.bounds)-self.itemSize , self.lineHeight)];
@@ -74,16 +74,14 @@
             [self.rightCursorButton setImage:self.imageOfNormalButtonRight forState:UIControlStateNormal];
             [self.leftCursorButton setImage:self.imageOfNormalButtonLeft forState:UIControlStateNormal];
         }
-        self.maxValue = 100.0;
-        self.minValue = 0.0;
-        self.offsetOfAdjustLineEnd = 0.0;
-        self.offsetOfAdjustLineStart = 0.0;
-//        self.leftDefaultValue = self.minValue;
-//        self.rightDefaultValue = self.maxValue;
         self.frame = frame;
-//        self.leftValue = self.leftDefaultValue;
-//        self.rightValue = self.rightDefaultValue;
         [self usingValueAtFront];
+        _offsetOfAdjustLineEnd = 0.0;
+        _offsetOfAdjustLineStart = 0.0;
+        _maxValue = 100.0;
+        _minValue = 0.0;
+        _leftValue = _minValue;
+        _rightValue = _maxValue;
     }
     return self;
 }
@@ -163,11 +161,8 @@
         }
         self.leftLine.frame = frame;
         
-        if(!self.valueCanEqual){
-            _leftValue = round((self.leftCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize;
-        }else{
-            _leftValue = round((CGRectGetMaxX(self.leftCursorButton.frame)-self.itemSize)/widthOfCalibration)*self.minimumSize;
-        }
+        _leftValue = round((self.leftCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize+self.minValue;
+        
         if(self.blockOfValueDidChanged){
             self.blockOfValueDidChanged(_leftValue , _rightValue);
         }
@@ -203,11 +198,7 @@
         }
         self.rightLine.frame = frame;
         
-        if(!self.valueCanEqual){
-            _rightValue = self.maxValue - round((self.controlWidth-self.rightCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize;
-        }else{
-            _rightValue = self.maxValue - round((self.controlWidth-CGRectGetMinX(self.rightCursorButton.frame)-self.itemSize)/widthOfCalibration)*self.minimumSize;
-        }
+        _rightValue = self.maxValue - round((self.controlWidth-self.rightCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize;
         if(self.blockOfValueDidChanged){
             self.blockOfValueDidChanged(_leftValue , _rightValue);
         }
@@ -216,11 +207,12 @@
 #pragma mark 设置左游标值
 - (void)setLeftValue:(double)leftValue
 {
+    leftValue = leftValue<self.minValue?self.minValue:leftValue;
     _leftValue = leftValue;
+    leftValue -= self.minValue;
     
     NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;
     CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*(self.valueCanEqual?2:1))/totalOfCalibration;
-    
     //按钮
     CGRect framOfButton= self.leftCursorButton.frame;
     framOfButton.origin.x = widthOfCalibration*leftValue;
@@ -237,19 +229,20 @@
 #pragma mark 设置右游标值
 - (void)setRightValue:(double)rightValue
 {
+    rightValue = rightValue>self.maxValue?self.maxValue:rightValue;
     _rightValue = rightValue;
-    
+    rightValue -= self.minValue;
     NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;//总份
     CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*(self.valueCanEqual?2:1))/totalOfCalibration;//份长
     
     //按钮
     CGRect framOfButton= self.rightCursorButton.frame;
-    framOfButton.origin.x = widthOfCalibration*rightValue;
+    framOfButton.origin.x = widthOfCalibration*rightValue + self.itemRadius*(self.valueCanEqual?2:1);
     self.rightCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.rightLine.frame;
     framOfLine.origin.x = framOfButton.origin.x + self.itemRadius;
-    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue - self.itemSize;
+    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue -  self.itemSize*(self.valueCanEqual?2:1);
     if(self.offsetOfAdjustLineEnd){
         
         framOfLine.origin.x -= self.offsetOfAdjustLineEnd;
@@ -259,6 +252,13 @@
         framOfLine.size.width -= self.offsetOfAdjustLineStart;
     }
     self.rightLine.frame = framOfLine;
+}
+
+- (void)update
+{
+    self.leftValue = _leftValue;
+    self.rightValue = _rightValue;
+    [self setNeedsDisplay];
 }
 
 - (void)eventValueDidChanged:(void (^)(double, double))block
