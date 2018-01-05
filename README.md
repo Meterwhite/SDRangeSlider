@@ -3,13 +3,13 @@
 
 ## Introduce【介绍】
 * 好用的iOS双滑块选择器
-* 随手一赞,好运百万
+* 随手一赞.好运百万.
 * Easy-to-use iOS dual slider selector
-* Start me,fuck lily
+* Once start me.Day day fuck Lynn.
 
 ## Import【导入】
 - Drag all source files under floder `NSBlackHole` to your project.【将`SDRangeSliderView`文件夹中的所有源代码拽入项目中】
-- Import the main header file：`#import "NSNil.h"`【导入头文件：`#import "SDRangeSliderView.h"`】
+- Import the main header file：`#import "NSBlackHole.h"`【导入头文件：`#import "SDRangeSliderView.h"`】
 ```objc
 #import "SDRangeSliderView.h"
 ```
