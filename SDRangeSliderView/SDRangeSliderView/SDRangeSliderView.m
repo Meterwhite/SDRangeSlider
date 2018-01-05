@@ -219,6 +219,7 @@
     self.leftCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.leftLine.frame;
+    framOfLine.origin.x = self.itemRadius;
     framOfLine.size.width = widthOfCalibration*leftValue + self.offsetOfAdjustLineEnd;
     if(self.offsetOfAdjustLineStart){
         framOfLine.origin.x += self.offsetOfAdjustLineStart;
