@@ -347,7 +347,7 @@
         view.frame = CGRectMake(0, 0, self.itemSize*scale, self.itemSize*scale);
         
         CALayer* layerShadow = [CALayer layer];
-        CGFloat margin = 2;
+        CGFloat margin = 1.5;
         layerShadow.frame = CGRectMake( 2*margin*scale, margin*scale, (self.itemSize-margin*2)*scale, (self.itemSize-margin*2)*scale);
         layerShadow.backgroundColor = [UIColor clearColor].CGColor;
         layerShadow.cornerRadius = layerShadow.bounds.size.width/2;
@@ -361,6 +361,8 @@
         layerBtn.frame = layerShadow.bounds;
         layerBtn.masksToBounds = YES;
         layerBtn.cornerRadius = layerBtn.bounds.size.width/2;
+        layerBtn.borderColor = [UIColor colorWithWhite:0 alpha:0.3].CGColor;
+        layerBtn.borderWidth = 0.2;
         
         [layerShadow addSublayer:layerBtn];
         [view.layer addSublayer:layerShadow];
@@ -384,7 +386,7 @@
         view.frame = CGRectMake(0, 0, self.itemSize*scale, self.itemSize*scale);
         
         CALayer* layerShadow = [CALayer layer];
-        CGFloat margin = 2;
+        CGFloat margin = 1.5;
         layerShadow.frame = CGRectMake(0 , margin*scale, (self.itemSize-margin*2)*scale, (self.itemSize-margin*2)*scale);
         layerShadow.backgroundColor = [UIColor clearColor].CGColor;
         layerShadow.cornerRadius = layerShadow.bounds.size.width/2;
@@ -399,7 +401,7 @@
         layerBtn.masksToBounds = YES;
         layerBtn.cornerRadius = layerBtn.bounds.size.width/2;
         layerBtn.borderColor = [UIColor colorWithWhite:0 alpha:0.3].CGColor;
-        layerBtn.borderWidth = 0.5;
+        layerBtn.borderWidth = 0.2;
         
         [layerShadow addSublayer:layerBtn];
         
