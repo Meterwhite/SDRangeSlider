@@ -19,9 +19,9 @@
     [super viewDidLoad];
     
     SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(0, 100, 300, 50)];
-
+    
     /*
-     *打开每个注释观察变化(Open comment to observe the change)
+     *打开任意注释观察变化(Open comment to observe the change)
      */
 
 //    slider.minValue = 100;
@@ -36,7 +36,7 @@
     
 //    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
     
-//    [slider usingValueAtCenter];//look at viewHierarcy
+//    [slider usingValueUnequal];//look at viewHierarcy
     
 //    [slider customUIUsingBlock:^(UIButton *leftCursor, UIButton *rightCursor) {
 //        [leftCursor setImage:nil forState:UIControlStateNormal];

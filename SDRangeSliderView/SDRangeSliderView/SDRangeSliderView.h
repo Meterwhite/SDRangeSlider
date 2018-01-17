@@ -56,7 +56,7 @@
 /**
  使用游标的中心取值，两个游标不能取到相等的值(With the center of the cursor, the two cursors cannot be equal to each other)
  */
-- (void)usingValueAtCenter;
+- (void)usingValueUnequal;
 
 /**
  调整线条两端的起始偏移,负数时向两边延伸(Adjust the starting offset at both ends of the line and extend it to both sides when negative)

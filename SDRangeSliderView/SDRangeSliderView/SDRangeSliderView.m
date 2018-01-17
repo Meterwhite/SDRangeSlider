@@ -112,8 +112,8 @@
     
     pan.view.center = CGPointMake(center.x + point.x, self.itemRadius);
     
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;//刻度总份数
-    CGFloat ineffectiveLength = self.itemSize*(self.valueCanEqual?2:1);//无效的坐标系长度
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;//刻度总份数
+    CGFloat ineffectiveLength = self.itemSize*2;//无效的坐标系长度
     CGFloat widthOfCalibration = (self.controlWidth-ineffectiveLength)/totalOfCalibration;//一个刻度的宽
     if (pan.state == UIGestureRecognizerStateEnded) {
         /*
@@ -211,8 +211,8 @@
     _leftValue = leftValue;
     leftValue -= self.minValue;
     
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;
-    CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*(self.valueCanEqual?2:1))/totalOfCalibration;
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;
+    CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*2)/totalOfCalibration;
     //按钮
     CGRect framOfButton= self.leftCursorButton.frame;
     framOfButton.origin.x = widthOfCalibration*leftValue;
@@ -233,17 +233,17 @@
     rightValue = rightValue>self.maxValue?self.maxValue:rightValue;
     _rightValue = rightValue;
     rightValue -= self.minValue;
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize;//总份
-    CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*(self.valueCanEqual?2:1))/totalOfCalibration;//份长
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;
+    CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*2)/totalOfCalibration;//份长
     
     //按钮
     CGRect framOfButton= self.rightCursorButton.frame;
-    framOfButton.origin.x = widthOfCalibration*rightValue + self.itemRadius*(self.valueCanEqual?2:1);
+    framOfButton.origin.x = widthOfCalibration*rightValue + self.itemRadius*2;
     self.rightCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.rightLine.frame;
     framOfLine.origin.x = framOfButton.origin.x + self.itemRadius;
-    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue -  self.itemSize*(self.valueCanEqual?2:1);
+    framOfLine.size.width = self.controlWidth - widthOfCalibration*rightValue -  self.itemSize*2;
     if(self.offsetOfAdjustLineEnd){
         
         framOfLine.origin.x -= self.offsetOfAdjustLineEnd;
@@ -328,7 +328,7 @@
     self.valueCanEqual = YES;
 }
 
-- (void)usingValueAtCenter
+- (void)usingValueUnequal
 {
     self.valueCanEqual = NO;
 }
