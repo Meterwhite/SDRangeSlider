@@ -31,7 +31,7 @@ SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(
 
 //    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
 
-//    [slider usingValueAtCenter];//look at viewHierarcy
+//    [slider usingValueUnequal];
 ```
 ## Email【联系】
 - Mail:quxingyi@outlook.com
