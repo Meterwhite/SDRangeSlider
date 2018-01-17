@@ -63,7 +63,7 @@
         self.rightCursorButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.rightCursorButton];
         self.rightCursorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        self.rightCursorButton.frame = CGRectMake(CGRectGetWidth(self.bounds)-self.itemRadius, 0, self.itemSize, self.itemSize);
+        self.rightCursorButton.frame = CGRectMake(CGRectGetWidth(self.bounds)-self.itemSize, 0, self.itemSize, self.itemSize);
         UIPanGestureRecognizer* padRight = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(eventPan:)];
         [self.rightCursorButton addGestureRecognizer:padRight];
         
