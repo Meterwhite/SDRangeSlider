@@ -19,25 +19,23 @@
     [super viewDidLoad];
     
     SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(0, 100, 300, 50)];
-    
     /*
      *打开任意注释观察变化(Open comment to observe the change)
      */
-
+//    slider.minimumSize = 10;//最小刻度
+    
+//    [slider usingValueUnequal];//游标接触时取值间隔一个刻度;
+    
+//    slider.offsetOfAdjustLineStart = -12;//look at viewHierarcy
+//    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
+    
 //    slider.minValue = 100;
 //    slider.maxValue = 300;
 //    slider.leftValue = 150;
 //    slider.rightValue = 200;
 //    [slider update];
-    
-//    slider.minimumSize = 10;
-    
-//    slider.offsetOfAdjustLineStart = -12;//look at viewHierarcy
-    
-//    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
-    
-//    [slider usingValueUnequal];//look at viewHierarcy
-    
+
+
 //    [slider customUIUsingBlock:^(UIButton *leftCursor, UIButton *rightCursor) {
 //        [leftCursor setImage:nil forState:UIControlStateNormal];
 //        leftCursor.backgroundColor = UIColor.redColor;

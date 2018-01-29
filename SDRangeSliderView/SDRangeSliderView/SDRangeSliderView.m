@@ -9,6 +9,9 @@
 #import "SDRangeSliderView.h"
 
 @interface SDRangeSliderView()
+{
+    NSUInteger _valueMargin;
+}
 
 /**
  游标按钮(Button of cursor)
@@ -26,7 +29,7 @@
 /**
  开始取值的偏移量
  */
-@property (nonatomic,assign) BOOL valueCanEqual;
+//@property (nonatomic,assign) BOOL valueCanEqual;
 
 
 @property (nonatomic,strong) UIImage* imageOfNormalButtonLeft;
@@ -42,6 +45,7 @@
         _itemSize = 30;
         _lineHeight = 2;
         _minimumSize = 1;
+        _valueMargin = 0;
         //底部线条
         CGFloat lineY = self.itemRadius-self.lineHeight/2;
         self.backgroundLine = [[UIView alloc] initWithFrame:CGRectMake(self.itemRadius, lineY , CGRectGetWidth(self.bounds)-self.itemSize , self.lineHeight)];
@@ -99,6 +103,12 @@
     [super setBounds:bounds];
 }
 
+- (void)setMinimumSize:(double)minimumSize
+{
+    if(minimumSize == 0.0) return;
+    _minimumSize = minimumSize;
+}
+
 
 #pragma mark 触摸事件
 - (void)eventPan:(UIPanGestureRecognizer*)pan
@@ -112,7 +122,7 @@
     
     pan.view.center = CGPointMake(center.x + point.x, self.itemRadius);
     
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;//刻度总份数
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize - _valueMargin;//刻度总份数
     CGFloat ineffectiveLength = self.itemSize*2;//无效的坐标系长度
     CGFloat widthOfCalibration = (self.controlWidth-ineffectiveLength)/totalOfCalibration;//一个刻度的宽
     if (pan.state == UIGestureRecognizerStateEnded) {
@@ -120,7 +130,7 @@
          有效长度的坐标首先偏移，找整数刻度值；之后将这个整数刻度值和之前的偏移还原回坐标系统
          */
         if(pan.view == self.leftCursorButton){
-
+            
             CGFloat countOfCalibration = round((pan.view.center.x-self.itemRadius)/widthOfCalibration);
             pan.view.center = CGPointMake(countOfCalibration*widthOfCalibration+ineffectiveLength/4, pan.view.center.y);
         }else{
@@ -151,20 +161,23 @@
             }
         }
         
-        CGRect frame = self.leftLine.frame;
-        frame.size.width = self.leftCursorButton.center.x - self.itemRadius;
+        CGRect frameOfLine = self.leftLine.frame;
+        frameOfLine.size.width = self.leftCursorButton.center.x - self.itemRadius;
         if(self.offsetOfAdjustLineStart){
-            frame.size.width -= self.offsetOfAdjustLineStart;
+            frameOfLine.size.width -= self.offsetOfAdjustLineStart;
         }
         if(self.offsetOfAdjustLineEnd){
-            frame.size.width += self.offsetOfAdjustLineEnd;
+            frameOfLine.size.width += self.offsetOfAdjustLineEnd;
         }
-        self.leftLine.frame = frame;
+        self.leftLine.frame = frameOfLine;
         
         _leftValue = round((self.leftCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize+self.minValue;
         
         if(self.blockOfValueDidChanged){
             self.blockOfValueDidChanged(_leftValue , _rightValue);
+        }
+        if([self.delegate respondsToSelector:@selector(sliderValueDidChangedOfLeft:right:)]){
+            [self.delegate sliderValueDidChangedOfLeft:_leftValue right:_rightValue];
         }
     }else{
         
@@ -186,21 +199,24 @@
             }
         }
         
-        CGRect frame = self.rightLine.frame;
-        frame.size.width = CGRectGetWidth(self.bounds) - self.rightCursorButton.center.x - self.itemRadius;
-        frame.origin.x = self.rightCursorButton.center.x;
+        CGRect frameOfLine = self.rightLine.frame;
+        frameOfLine.size.width = CGRectGetWidth(self.bounds) - self.rightCursorButton.center.x - self.itemRadius;
+        frameOfLine.origin.x = self.rightCursorButton.center.x;
         if(self.offsetOfAdjustLineEnd){
-            frame.origin.x -= self.offsetOfAdjustLineEnd;
-            frame.size.width += self.offsetOfAdjustLineEnd;
+            frameOfLine.origin.x -= self.offsetOfAdjustLineEnd;
+            frameOfLine.size.width += self.offsetOfAdjustLineEnd;
         }
         if(self.offsetOfAdjustLineStart){
-            frame.size.width -= self.offsetOfAdjustLineStart;
+            frameOfLine.size.width -= self.offsetOfAdjustLineStart;
         }
-        self.rightLine.frame = frame;
+        self.rightLine.frame = frameOfLine;
         
         _rightValue = self.maxValue - round((self.controlWidth-self.rightCursorButton.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize;
         if(self.blockOfValueDidChanged){
             self.blockOfValueDidChanged(_leftValue , _rightValue);
+        }
+        if([self.delegate respondsToSelector:@selector(sliderValueDidChangedOfLeft:right:)]){
+            [self.delegate sliderValueDidChangedOfLeft:_leftValue right:_rightValue];
         }
     }
 }
@@ -209,13 +225,15 @@
 {
     leftValue = leftValue<self.minValue?self.minValue:leftValue;
     _leftValue = leftValue;
-    leftValue -= self.minValue;
+    leftValue -= _minValue;
+    leftValue /= _minimumSize;
     
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize - _valueMargin;
     CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*2)/totalOfCalibration;
+    
     //按钮
     CGRect framOfButton= self.leftCursorButton.frame;
-    framOfButton.origin.x = widthOfCalibration*leftValue;
+    framOfButton.origin.x = widthOfCalibration*leftValue;//0-200
     self.leftCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.leftLine.frame;
@@ -232,13 +250,16 @@
 {
     rightValue = rightValue>self.maxValue?self.maxValue:rightValue;
     _rightValue = rightValue;
-    rightValue -= self.minValue;
-    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize-!self.valueCanEqual?:1;
+    rightValue -= _minValue;
+    rightValue /= _minimumSize;
+    rightValue -= _valueMargin;
+    
+    NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize - _valueMargin;
     CGFloat widthOfCalibration = (self.controlWidth-self.itemSize*2)/totalOfCalibration;//份长
     
     //按钮
     CGRect framOfButton= self.rightCursorButton.frame;
-    framOfButton.origin.x = widthOfCalibration*rightValue + self.itemRadius*2;
+    framOfButton.origin.x = widthOfCalibration*rightValue + self.itemSize;
     self.rightCursorButton.frame = framOfButton;
     //线
     CGRect framOfLine = self.rightLine.frame;
@@ -325,12 +346,12 @@
 
 - (void)usingValueAtFront
 {
-    self.valueCanEqual = YES;
+    _valueMargin = 0;
 }
 
 - (void)usingValueUnequal
 {
-    self.valueCanEqual = NO;
+    _valueMargin = 1;
 }
 
 - (CGFloat)controlWidth
