@@ -24,7 +24,7 @@ SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(
     //... ...
 }];
 
-//other
+//others
 //    slider.minimumSize = 10;
 
 //    slider.offsetOfAdjustLineStart = -12;//look at viewHierarcy
@@ -32,6 +32,7 @@ SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(
 //    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
 
 //    [slider usingValueUnequal];
+//    ... ...
 ```
 ## Email【联系】
 - Mail:quxingyi@outlook.com

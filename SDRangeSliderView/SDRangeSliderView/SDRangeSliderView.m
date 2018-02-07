@@ -45,7 +45,6 @@
         _itemSize = 30;
         _lineHeight = 2;
         _minimumSize = 1;
-        _valueMargin = 0;
         //底部线条
         CGFloat lineY = self.itemRadius-self.lineHeight/2;
         self.backgroundLine = [[UIView alloc] initWithFrame:CGRectMake(self.itemRadius, lineY , CGRectGetWidth(self.bounds)-self.itemSize , self.lineHeight)];
