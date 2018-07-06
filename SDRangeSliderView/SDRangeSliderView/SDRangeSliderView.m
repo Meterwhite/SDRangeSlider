@@ -117,7 +117,15 @@
     if (pan.state == UIGestureRecognizerStateBegan) {
         
         center = pan.view.center;
+        //one finger
+        self.leftCursorButton.userInteractionEnabled = (pan.view == self.leftCursorButton);
+        self.rightCursorButton.userInteractionEnabled = (pan.view == self.rightCursorButton);
+    }else if(pan.state == UIGestureRecognizerStateEnded){
+        
+        self.leftCursorButton.userInteractionEnabled = YES;
+        self.rightCursorButton.userInteractionEnabled = YES;
     }
+    
     
     pan.view.center = CGPointMake(center.x + point.x, self.itemRadius);
     
