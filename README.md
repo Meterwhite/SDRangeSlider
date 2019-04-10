@@ -8,8 +8,8 @@
 * Once start me.Day day fuck Lynn.
 
 ## Import【导入】
-- Drag all source files under floder `NSBlackHole` to your project.【将`SDRangeSliderView`文件夹中的所有源代码拽入项目中】
-- Import the main header file：`#import "NSBlackHole.h"`【导入头文件：`#import "SDRangeSliderView.h"`】
+- Drag all source files under floder `SDRangeSliderView` to your project.【将`SDRangeSliderView`文件夹中的所有源代码拽入项目中】
+- Import the main header file：`#import "SDRangeSliderView.h"`【导入头文件：`#import "SDRangeSliderView.h"`】
 ```objc
 #import "SDRangeSliderView.h"
 ```
