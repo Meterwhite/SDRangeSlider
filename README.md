@@ -1,5 +1,5 @@
 # SDRangeSlider
-![SDRangeSlider icon](https://raw.githubusercontent.com/Meterwhite/SDRangeSlider/master/SDRangeSlider/title.png)
+![SDRangeSlider icon](https://raw.githubusercontent.com/Meterwhite/SDRangeSlider/master/title.png)
 
 ## Introduce【介绍】
 * Skir的（SD）iOS双滑块范围选择器
