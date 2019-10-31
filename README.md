@@ -1,39 +1,40 @@
-# SDRangeSliderView
-![SDRangeSliderView icon](https://raw.githubusercontent.com/qddnovo/SDRangeSliderView/master/SDRangeSliderView/title.png)
+# SDRangeSlider
+![SDRangeSlider icon](https://raw.githubusercontent.com/Meterwhite/SDRangeSlider/master/SDRangeSlider/title.png)
 
 ## Introduce【介绍】
-* 好用的iOS双滑块选择器
+* Skir的（SD）iOS双滑块范围选择器
 * 随手一赞.好运百万.
-* Easy-to-use iOS dual slider selector
-* Once start me.Day day fuck Lynn.
+* Easy-to-use iOS range slider selector
+* Once start me.Day day up.
 
-## Import【导入】
-- Drag all source files under floder `SDRangeSliderView` to your project.【将`SDRangeSliderView`文件夹中的所有源代码拽入项目中】
-- Import the main header file：`#import "SDRangeSliderView.h"`【导入头文件：`#import "SDRangeSliderView.h"`】
+## Import
+- Drag floder `SDRangeSlider` to your project.
 ```objc
-#import "SDRangeSliderView.h"
+#import "SDRangeSlider.h"
 ```
-## Using【使用】
+## CocoaPods
+```
+pod 'SDRangeSlider'
+```
+
+## 速览 Quick View
 ```objc
-SDRangeSliderView* slider = [[SDRangeSliderView alloc] initWithFrame:CGRectMake(0, 0, 300, 0)];
-[self.view addSubview:slider];
-//... ...
-//... ...
-//... ...
-[slider eventValueDidChanged:^(double left, double right) {
-    //... ...
+SDRangeSlider* slider = [[SDRangeSlider alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+[slider eventValueDidChanged:^(SDRangeSliderValues *values) {
+    double left = values.left.doubleValue;
+    double right= values.right.doubleValue;
 }];
+[self.view addSubview:slider];
 
 //others
 //    slider.minimumSize = 10;
-
 //    slider.offsetOfAdjustLineStart = -12;//look at viewHierarcy
-
 //    slider.offsetOfAdjustLineEnd = 15;//look at viewHierarcy
-
 //    [slider usingValueUnequal];
 //    ... ...
 ```
-## Email【联系】
-- Mail:quxingyi@outlook.com
+### More code in demo ...
+
+## Email
+- meterwhite@outlook.com
 
