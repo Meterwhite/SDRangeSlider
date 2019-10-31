@@ -1,0 +1,6 @@
+framework module Pods_SDRangeSliderDemo {
+  umbrella header "Pods-SDRangeSliderDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

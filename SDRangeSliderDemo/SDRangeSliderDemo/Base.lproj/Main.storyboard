@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0xt-Nb-CIN"/>
+                        <viewControllerLayoutGuide type="bottom" id="ahp-3l-t4v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s41-Dq-fMN" customClass="SDRangeSlider">
+                                <rect key="frame" x="15" y="150" width="345" height="42"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="mxP-Vq-6Uq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="leftValue">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rightValue">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumSize">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autolayout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fv6-rx-edP">
+                                <rect key="frame" x="15" y="124" width="82" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w42-g6-EeP">
+                                <rect key="frame" x="37" y="207" width="10.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8K-rO-Xhs">
+                                <rect key="frame" x="270" y="207" width="10.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUF-TO-bjo" customClass="SDRangeSlider">
+                                <rect key="frame" x="15" y="272" width="345" height="42"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="qyc-id-mtL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="EUF-TO-bjo" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="80" id="3kH-Vj-1oJ"/>
+                            <constraint firstItem="h8K-rO-Xhs" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="15" id="5es-OJ-yYF"/>
+                            <constraint firstItem="fv6-rx-edP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="75a-Tb-7b2"/>
+                            <constraint firstItem="h8K-rO-Xhs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="270" id="Btm-El-HBw"/>
+                            <constraint firstAttribute="trailing" secondItem="s41-Dq-fMN" secondAttribute="trailing" constant="15" id="CTU-UE-bZt"/>
+                            <constraint firstAttribute="trailing" secondItem="EUF-TO-bjo" secondAttribute="trailing" constant="15" id="F2b-oY-gp3"/>
+                            <constraint firstItem="s41-Dq-fMN" firstAttribute="top" secondItem="0xt-Nb-CIN" secondAttribute="bottom" constant="150" id="FUA-TI-pUg"/>
+                            <constraint firstItem="w42-g6-EeP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="37" id="IfG-6Q-1QD"/>
+                            <constraint firstItem="w42-g6-EeP" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="15" id="LvU-MU-12E"/>
+                            <constraint firstItem="s41-Dq-fMN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="NOf-Io-6ze"/>
+                            <constraint firstItem="EUF-TO-bjo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="k8i-6V-KjC"/>
+                            <constraint firstItem="s41-Dq-fMN" firstAttribute="top" secondItem="fv6-rx-edP" secondAttribute="bottom" constant="5" id="mpd-Zz-8gS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="customStyleSlider" destination="EUF-TO-bjo" id="ZAy-Ed-FgZ"/>
+                        <outlet property="leftLab" destination="w42-g6-EeP" id="pPk-dw-ZhU"/>
+                        <outlet property="leftX" destination="IfG-6Q-1QD" id="HXI-jr-15W"/>
+                        <outlet property="rightLab" destination="h8K-rO-Xhs" id="O0l-NH-Si5"/>
+                        <outlet property="rightX" destination="Btm-El-HBw" id="Hj1-bc-vkj"/>
+                        <outlet property="selfH" destination="mxP-Vq-6Uq" id="N2i-tG-hKF"/>
+                        <outlet property="sliderAut" destination="s41-Dq-fMN" id="0Nm-8r-oTF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-655.20000000000005" y="-11.244377811094454"/>
+        </scene>
+    </scenes>
+</document>
