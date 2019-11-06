@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,10 +27,10 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="leftValue">
-                                        <real key="value" value="1"/>
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rightValue">
-                                        <real key="value" value="15"/>
+                                        <real key="value" value="11"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minimumSize">
                                         <real key="value" value="2"/>
@@ -68,12 +68,27 @@
                                     <constraint firstAttribute="height" constant="42" id="qyc-id-mtL"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yhn-2c-Pga">
+                                <rect key="frame" x="15" y="322" width="47" height="30"/>
+                                <state key="normal" title="Enable"/>
+                                <connections>
+                                    <action selector="actionEnable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VoQ-g7-k9y"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mq0-Zf-JBP">
+                                <rect key="frame" x="15" y="246" width="101" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Yhn-2c-Pga" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="2Ua-NQ-gCs"/>
                             <constraint firstItem="EUF-TO-bjo" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="80" id="3kH-Vj-1oJ"/>
                             <constraint firstItem="h8K-rO-Xhs" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="15" id="5es-OJ-yYF"/>
                             <constraint firstItem="fv6-rx-edP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="75a-Tb-7b2"/>
+                            <constraint firstItem="EUF-TO-bjo" firstAttribute="top" secondItem="Mq0-Zf-JBP" secondAttribute="bottom" constant="5" id="BRy-5d-5dl"/>
                             <constraint firstItem="h8K-rO-Xhs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="270" id="Btm-El-HBw"/>
                             <constraint firstAttribute="trailing" secondItem="s41-Dq-fMN" secondAttribute="trailing" constant="15" id="CTU-UE-bZt"/>
                             <constraint firstAttribute="trailing" secondItem="EUF-TO-bjo" secondAttribute="trailing" constant="15" id="F2b-oY-gp3"/>
@@ -81,8 +96,10 @@
                             <constraint firstItem="w42-g6-EeP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="37" id="IfG-6Q-1QD"/>
                             <constraint firstItem="w42-g6-EeP" firstAttribute="top" secondItem="s41-Dq-fMN" secondAttribute="bottom" constant="15" id="LvU-MU-12E"/>
                             <constraint firstItem="s41-Dq-fMN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="NOf-Io-6ze"/>
+                            <constraint firstItem="Yhn-2c-Pga" firstAttribute="top" secondItem="EUF-TO-bjo" secondAttribute="bottom" constant="8" id="QkJ-39-nvg"/>
                             <constraint firstItem="EUF-TO-bjo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="k8i-6V-KjC"/>
                             <constraint firstItem="s41-Dq-fMN" firstAttribute="top" secondItem="fv6-rx-edP" secondAttribute="bottom" constant="5" id="mpd-Zz-8gS"/>
+                            <constraint firstItem="Mq0-Zf-JBP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="ooc-BJ-3Dk"/>
                         </constraints>
                     </view>
                     <connections>

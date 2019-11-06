@@ -17,10 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftLab;
 @property (weak, nonatomic) IBOutlet UILabel *rightLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selfH;
-
 @property (weak, nonatomic) IBOutlet SDRangeSlider *customStyleSlider;
-
-
 @end
 
 @implementation ViewController
@@ -29,7 +26,7 @@
     [super viewDidLoad];
     
     #pragma mark - Frame layout
-    SDRangeSlider* slider = [[SDRangeSlider alloc] initWithFrame:CGRectMake(0, 100, 300, 50)].usingSystemSliderHeight().usingMinimumSize(1).usingMinValue(18).usingMaxValue(99);
+    SDRangeSlider* slider = [[SDRangeSlider alloc] initWithFrame:CGRectMake(15, 100, UIScreen.mainScreen.bounds.size.width-15*2, 50)].usingSystemSliderHeight().usingMinimumSize(1).usingMinValue(18).usingMaxValue(99);
     [self.view addSubview:slider];
     UILabel* info = [[UILabel alloc] initWithFrame:CGRectMake(15, 64, 300, 20)];
     info.text = @"SDRangeSlider";
@@ -53,6 +50,7 @@
         weak_self.rightLab.text = [NSString stringWithFormat:@"%lu", (NSInteger)points.thisSlider.rightValue];
     } converToView:self.view];
     
+    /// Using RAC
     [self.sliderAut.signalRangeSliderValueDidChanged subscribeNext:^(SDRangeSliderValues *values) {
         weak_self.selfH.constant = 28 + values.validLength.intValue;
         [values.thisSlider update];
@@ -71,8 +69,8 @@
     [self.customStyleSlider customButtonStyleUsingBlock:^(SDRangeSliderCursor *left, SDRangeSliderCursor *right) {
        
        /// As a view
-        left.usingCustomStyle().usingRoundStyle().usingBackgroundColor(UIColor.lightGrayColor).usingBorderColor(UIColor.systemPinkColor).usingBorderWidth(0.5);
-        right.usingCustomStyle().usingRoundStyle().usingBackgroundColor(UIColor.lightGrayColor).usingBorderColor(UIColor.systemPinkColor).usingBorderWidth(0.5);
+        left.usingCustomStyle().usingRoundStyle().usingBackgroundColor(UIColor.systemPinkColor).usingBorderColor(UIColor.blackColor).usingBorderWidth(0.5).usingDisableBackgroundColor(SDRangeSlider.defaultDisableColor);
+        right.usingCustomStyle().usingRoundStyle().usingBackgroundColor(UIColor.systemPinkColor).usingBorderColor(UIColor.blackColor).usingBorderWidth(0.5).usingDisableBackgroundColor(SDRangeSlider.defaultDisableColor);
         /// As a button
         /**
          [left.usingImageRight() setImage:[UIImage imageNamed:@"?"] forState:UIControlStateNormal];
@@ -80,4 +78,22 @@
          */
     }];
 }
+
+- (IBAction)actionEnable:(UIButton*)sender
+{
+    NSString *title = [sender titleForState:UIControlStateNormal];
+    if([title characterAtIndex:0] == 'D'){
+        title = @"Enable";
+        [self.customStyleSlider setEnabled:YES];
+        self.customStyleSlider.leftCursor.usingBorderWidth(0.5);
+        self.customStyleSlider.rightCursor.usingBorderWidth(0.5);
+    } else {
+        title = @"Disable";
+        [self.customStyleSlider setEnabled:NO];
+        self.customStyleSlider.leftCursor.usingBorderWidth(0);
+        self.customStyleSlider.rightCursor.usingBorderWidth(0);
+    }
+    [sender setTitle:title forState:UIControlStateNormal];
+}
+
 @end

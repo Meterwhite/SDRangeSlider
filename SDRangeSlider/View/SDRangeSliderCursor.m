@@ -15,9 +15,11 @@
 @implementation SDRangeSliderCursor
 {
     BOOL    _needRound;
+    UIColor*_disableBackgroundColor;
+    UIColor*_backgroundColor;
 }
 #define dMargin 4
-#define dShadowRadius 6
+#define dShadowRadius 2
 
 #pragma mark - SDRangeSlider
 + (instancetype)defaultLeftButton:(CGFloat)itemSize
@@ -160,6 +162,15 @@
     };
 }
 
+- (SDRangeSliderCursor * _Nonnull (^)(UIColor * _Nonnull))usingDisableBackgroundColor
+{
+    return ^id(UIColor *color){
+        self->_backgroundColor = self.backgroundColor;
+        self->_disableBackgroundColor = color;
+        return self;
+    };
+}
+
 - (void)update
 {
     [self setNeedsLayout];
@@ -176,6 +187,20 @@
 }
 
 #pragma mark - UIButton
+- (void)setEnabled:(BOOL)enabled
+{
+    BOOL oriEnable = self.isEnabled;
+    [super setEnabled:enabled];
+    if(!_disableBackgroundColor) {
+        return;
+    }
+    /// Update background color.
+    if(oriEnable) {
+        _backgroundColor = self.backgroundColor;
+    }
+    [self setBackgroundColor: enabled ? _backgroundColor : _disableBackgroundColor];
+}
+
 + (instancetype)buttonWithType:(UIButtonType)buttonType
 {
     SDRangeSliderCursor* ret= [super buttonWithType:buttonType];

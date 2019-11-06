@@ -28,10 +28,6 @@ static IMP      _imp_sendNext;
 
 @property (nonatomic,copy) void(^blockOfCursorOriginDidChanged)(SDRangeSliderPoints* points);
 @property (nonatomic,copy) void(^blockOfValueDidChanged)(SDRangeSliderValues* values);
-//@property (nonatomic)           UIImage*  defaultImageForLeftButton;
-//@property (nonatomic)           UIImage*  defaultImageForRightButton;
-@property (nonatomic)           SDRangeSliderCursor* leftCursor;
-@property (nonatomic)           SDRangeSliderCursor* rightCursor;
 @property (nonatomic)           UIView*   backgroundLine;
 @property (nonatomic,readonly)  CGFloat   itemRadius;
 @property (nonatomic)           UIView*   leftLine;
@@ -40,8 +36,19 @@ static IMP      _imp_sendNext;
 
 @implementation SDRangeSlider
 #pragma mark - runtime work
-+ (void)load
++ (UIColor *)defaultDisableColor
 {
+    static UIColor* _defaultDisableColor;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _defaultDisableColor = [UIColor colorWithRed:209.0f/255.0f green:209.0f/255.0f blue:209.0f/255.0f alpha:1.0f];
+    });
+    return _defaultDisableColor;
+}
++ (void)initialize
+{
+    if (self != [SDRangeSlider class]) return;
+    
     _cls_racsubject     = NSClassFromString(@"RACSubject");
     _sel_subject        = NSSelectorFromString(@"subject");
     _sel_sendNext       = NSSelectorFromString(@"sendNext:");
@@ -60,13 +67,16 @@ static IMP      _imp_sendNext;
     _offsetOfAdjustLineEnd  = 0.0;
     _maxValue   = 100.0;
     _minValue   = 0.0;
+    _enabled    = YES;
     _lineHeight = 2;
     _minimumSize= 1;
     _rightValue = _maxValue;
     _leftValue  = _minValue;
     //指示色
-    _lineColor = [UIColor colorWithRed:229.0f/255.0f green:229.0f/255.0f blue:229.0f/255.0f alpha:1.0f] ;
+    _lineColor = UIColor.lightGrayColor;
     _highlightLineColor = UIColor.systemBlueColor;
+    _disableLineColor = SDRangeSlider.defaultDisableColor;
+    _disableHighlightLineColor = SDRangeSlider.defaultDisableColor;
     //底部线条
     _backgroundLine = [UIView new];
     [_backgroundLine setBackgroundColor:_highlightLineColor];
@@ -121,7 +131,7 @@ static IMP      _imp_sendNext;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    [self linit];
+    [self update];
 }
 
 - (void)layoutSubviews
@@ -213,13 +223,32 @@ static IMP      _imp_sendNext;
 
 - (void)setLineColor:(UIColor *)lineColor
 {
+    _lineColor = lineColor;
+    if(!self.isEnabled) return;
     self.leftLine.backgroundColor = lineColor;
     self.rightLine.backgroundColor = lineColor;
 }
 
 - (void)setHighlightLineColor:(UIColor *)highlightLineColor
 {
+    _highlightLineColor = highlightLineColor;
+    if(!self.isEnabled) return;
     self.backgroundLine.backgroundColor = highlightLineColor;
+}
+
+- (void)setDisableLineColor:(UIColor *)disableLineColor
+{
+    _disableLineColor = disableLineColor;
+    if(self.isEnabled) return;
+    self.leftLine.backgroundColor = disableLineColor;
+    self.rightLine.backgroundColor = disableLineColor;
+}
+
+- (void)setDisableHighlightLineColor:(UIColor *)disableHighlightLineColor
+{
+    _disableHighlightLineColor = disableHighlightLineColor;
+    if(self.isEnabled) return;
+    self.backgroundLine.backgroundColor = disableHighlightLineColor;
 }
 
 - (CGFloat)itemRadius
@@ -296,9 +325,11 @@ static IMP      _imp_sendNext;
     [self valueChanging:sys];
     [self cursorOriginChanging:sys];
 }
+
 #pragma mark 触摸事件 Touched event
 - (void)eventPan:(UIPanGestureRecognizer*)pan
 {
+    if (!_enabled) return;
     CGPoint point = [pan translationInView:self];
     /// One finger handle
     if (pan.state == UIGestureRecognizerStateBegan) {
@@ -481,6 +512,18 @@ static IMP      _imp_sendNext;
         return self;
     };
 }
+
+- (void)setEnabled:(BOOL)enable
+{
+    if(_enabled == enable) return;
+    _enabled = enable;
+    [self.backgroundLine setBackgroundColor:enable ? self.highlightLineColor : self.disableHighlightLineColor];
+    [self.leftLine setBackgroundColor:enable ? self.lineColor : self.disableLineColor];
+    [self.rightLine setBackgroundColor:enable ? self.lineColor : self.disableLineColor];
+    [self.rightCursor setEnabled:enable];
+    [self.leftCursor setEnabled:enable];
+}
+
 #pragma mark 链式编程 Link code
 - (SDRangeSlider *(^)(double))usingMinimumSize
 {
@@ -544,6 +587,14 @@ static IMP      _imp_sendNext;
             }
         }
         return [self update];
+    };
+}
+
+- (SDRangeSlider * _Nonnull (^)(BOOL))usingEnable
+{
+    return ^id(BOOL enable){
+        self.enabled = enable;
+        return self;
     };
 }
 

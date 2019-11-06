@@ -56,6 +56,8 @@
 @property (nullable,nonatomic,strong) RACSubject  *signalRangeSliderCursorOriginDidChanged;
 
 #pragma mark ---- 按钮(UIButton)
+@property (nonnull,nonatomic) SDRangeSliderCursor* leftCursor;
+@property (nonnull,nonatomic) SDRangeSliderCursor* rightCursor;
 /** 最小刻度，默认1.0(Minimum scale, default 1.0) */
 @property (nonatomic) IBInspectable double minimumSize;
 /** 最小值，默认0.0；(default is 0.0) */
@@ -67,11 +69,13 @@
 /** 右游标按钮值，对UI有效(Right cursor button value) */
 @property (nonatomic) IBInspectable double rightValue;
 
-#pragma mark - 线条
-/** 无效线条颜色 */
-@property (nonatomic,nonnull) UIColor *lineColor;
-/** 有效线条颜色 */
-@property (nonatomic,nonnull) UIColor *highlightLineColor;
+#pragma mark - 线条 Line
+/** 有效线条的可用颜色(Valid line color) */
+@property (nonnull,nonatomic) UIColor *highlightLineColor;
+@property (nonnull,nonatomic) UIColor *disableHighlightLineColor;
+/** 无效线条的可用颜色(Invalid line color) */
+@property (nonnull,nonatomic) UIColor *lineColor;
+@property (nonnull,nonatomic) UIColor *disableLineColor;
 /** 线条高，默认值2(Line height, default value 2) */
 @property (nonatomic) CGFloat lineHeight;
 /**
@@ -84,8 +88,10 @@
 @property (nonatomic) double offsetOfAdjustLineEnd;
 
 #pragma mark ---- 用户偏好 Custom preference
-/** 游标按钮尺寸跟随控件高度反之也会影响控件高度。(The size of the cursor button follows the height of the control and vice versa.) */
+/** 游标按钮尺寸跟随控件高度反之也会影响控件高度，可以不设置。(The size of the cursor button follows the height of the control and vice versa. Can not be set.) */
 @property (nonatomic) CGFloat itemSize;
+/// Default YES
+@property (nonatomic,getter=isEnabled) BOOL enabled;
 /**
  *用户自定义游标按钮样式(User custom cursor button style)
  *注意：控件内两个按钮使用默认分别使用内容右对齐和左对齐的方式(Note: The two buttons in the control use the right and left alignment of the content)
@@ -111,8 +117,11 @@
 @property SDSliderLinkFunc SDRangeSlider *_Nonnull(^usingHighlightLineColor)(UIColor*_Nonnull color);
 /// Height 30
 @property SDSliderLinkFunc SDRangeSlider *_Nonnull(^usingSystemSliderHeight)(void);
+@property SDSliderLinkFunc SDRangeSlider *_Nonnull(^usingEnable)(BOOL enable);
 
 #pragma mark - 其他
 /// 强制布局 Force layout
 - (nonnull SDRangeSlider*)update;
+#pragma mark - Static
+@property (nonnull,nonatomic,readonly,class) UIColor* defaultDisableColor;
 @end
