@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SDRangeSlider"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = 'Double range slider selector in iOS.(Objc)'
   s.homepage     = 'https://github.com/Meterwhite/SDRangeSlider'
   s.license      = 'MIT'
