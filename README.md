@@ -5,9 +5,9 @@
 
 ## Introduce【介绍】
 * Skir的（SD）iOS双滑块范围选择器
-* 随手一赞.好运百万.
+* 随手赞一赞.好运上百万.
 * Easy-to-use iOS range slider selector
-* Once start me.Day day up.
+* start start start.lucK lucK lucK.
 
 ## Import
 - Drag floder `SDRangeSlider` to your project.
@@ -39,7 +39,3 @@ SDRangeSlider* slider = [[SDRangeSlider alloc] initWithFrame:CGRectMake(0, 0, 30
 ### Support xib
 - Better to call `update` when constraints layout.
 ### More code in demo ...
-
-## Email
-- meterwhite@outlook.com
-
