@@ -49,9 +49,9 @@ static IMP      _imp_sendNext;
 {
     if (self != [SDRangeSlider class]) return;
     
-    _cls_racsubject     = NSClassFromString(@"RACSubject");
-    _sel_subject        = NSSelectorFromString(@"subject");
-    _sel_sendNext       = NSSelectorFromString(@"sendNext:");
+    _cls_racsubject = NSClassFromString(@"RACSubject");
+    _sel_subject    = NSSelectorFromString(@"subject");
+    _sel_sendNext   = NSSelectorFromString(@"sendNext:");
     if(!_cls_racsubject || !_sel_subject || !_sel_sendNext) return;
     _imp_subject  = method_getImplementation(class_getClassMethod(_cls_racsubject, _sel_subject));
     _imp_sendNext = class_getMethodImplementation(_cls_racsubject, _sel_sendNext);
@@ -105,8 +105,8 @@ static IMP      _imp_sendNext;
     [self usingValueUnequal];
     //RAC
     if(_cls_racsubject){
-        self.signalRangeSliderValueDidChanged = ((id(*)(id,SEL))_imp_subject)(_cls_racsubject, _sel_subject);
-        self.signalRangeSliderCursorOriginDidChanged = ((id(*)(id,SEL))_imp_subject)(_cls_racsubject, _sel_subject);
+        self.signalRangeSliderValueDidChanged       = ((id(*)(id,SEL))_imp_subject)(_cls_racsubject, _sel_subject);
+        self.signalRangeSliderCursorOriginDidChanged= ((id(*)(id,SEL))_imp_subject)(_cls_racsubject, _sel_subject);
     }
     [self linit];
 }
@@ -115,10 +115,10 @@ static IMP      _imp_sendNext;
 - (void)linit
 {
     //底部线条
-    CGFloat lineY = self.itemRadius-self.lineHeight/2;
+    CGFloat lineY = self.itemRadius-_lineHeight/2;
     _backgroundLine.frame = CGRectMake(self.itemRadius, lineY , CGRectGetWidth(self.bounds)-self.itemSize , self.lineHeight);
     //左线
-    _leftLine.frame = CGRectMake(self.itemRadius, lineY, 0, self.lineHeight);
+    _leftLine.frame = CGRectMake(self.itemRadius, lineY, 0, _lineHeight);
     //右线
     _rightLine.frame = CGRectMake(self.controlWidth - self.itemRadius, lineY, 0, _lineHeight);
     //左游标
@@ -229,6 +229,12 @@ static IMP      _imp_sendNext;
     self.rightLine.backgroundColor = lineColor;
 }
 
+- (void)setLineHeight:(CGFloat)lineHeight
+{
+    _lineHeight = lineHeight;
+    [self update];
+}
+
 - (void)setHighlightLineColor:(UIColor *)highlightLineColor
 {
     _highlightLineColor = highlightLineColor;
@@ -327,14 +333,13 @@ static IMP      _imp_sendNext;
 }
 
 #pragma mark 触摸事件 Touched event
-- (void)eventPan:(UIPanGestureRecognizer*)pan
-{
+- (void)eventPan:(UIPanGestureRecognizer *)pan {
     if (!_enabled) return;
     CGPoint point = [pan translationInView:self];
     /// One finger handle
     if (pan.state == UIGestureRecognizerStateBegan) {
         _currentTouchCenter = pan.view.center;
-        self.leftCursor.userInteractionEnabled = (pan.view == self.leftCursor);
+        self.leftCursor.userInteractionEnabled  = (pan.view == self.leftCursor);
         self.rightCursor.userInteractionEnabled = (pan.view == self.rightCursor);
     }else if(pan.state == UIGestureRecognizerStateEnded){
         self.leftCursor.userInteractionEnabled = YES;
@@ -342,25 +347,25 @@ static IMP      _imp_sendNext;
     }
     pan.view.center = CGPointMake(_currentTouchCenter.x + point.x, self.itemRadius);
     NSInteger totalOfCalibration = (self.maxValue - self.minValue)/self.minimumSize - _valueMargin;//刻度总份数
-    CGFloat ineffectiveLength = self.itemSize*2;//无效的坐标系长度
-    CGFloat widthOfCalibration = (self.controlWidth-ineffectiveLength)/totalOfCalibration;//一个刻度的宽
+    CGFloat ineffectiveLength    = self.itemSize * 2;//无效的坐标系长度
+    CGFloat widthOfCalibration   = (self.controlWidth-ineffectiveLength)/totalOfCalibration;//一个刻度的宽
     /// 有效长度的坐标首先偏移，找整数刻度值；之后将这个整数刻度值和之前的偏移还原回坐标系统
     if (pan.state == UIGestureRecognizerStateEnded) {
         if(pan.view == self.leftCursor){
-            CGFloat countOfCalibration = round((pan.view.center.x-self.itemRadius)/widthOfCalibration);
-            pan.view.center = CGPointMake(countOfCalibration*widthOfCalibration+ineffectiveLength/4, pan.view.center.y);
+            CGFloat countOfCalibration = round((pan.view.center.x - self.itemRadius) / widthOfCalibration);
+            pan.view.center = CGPointMake(countOfCalibration * widthOfCalibration + ineffectiveLength / 4, pan.view.center.y);
         }else{
-            CGFloat countOfCalibration = round((self.controlWidth - pan.view.center.x-self.itemRadius)/widthOfCalibration);
-            pan.view.center = CGPointMake(self.controlWidth - countOfCalibration*widthOfCalibration-ineffectiveLength/4, pan.view.center.y);
+            CGFloat countOfCalibration = round((self.controlWidth - pan.view.center.x - self.itemRadius) / widthOfCalibration);
+            pan.view.center = CGPointMake(self.controlWidth - countOfCalibration*widthOfCalibration - ineffectiveLength/4, pan.view.center.y);
         }
     }
     /// UI chaging
     if(pan.view == self.leftCursor) {
         [self mainTouchingLeft:pan.view.center];
-        _leftValue = round((self.leftCursor.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize+self.minValue;
+        _leftValue = round((self.leftCursor.center.x - self.itemRadius) / widthOfCalibration) * self.minimumSize + self.minValue;
     }else{
         [self mainTouchingRight:pan.view.center];
-        _rightValue = self.maxValue - round((self.controlWidth-self.rightCursor.center.x-self.itemRadius)/widthOfCalibration)*self.minimumSize;
+        _rightValue = self.maxValue - round((self.controlWidth - self.rightCursor.center.x - self.itemRadius) / widthOfCalibration) * self.minimumSize;
     }
     [self valueChanging:NO];
     [self cursorOriginChanging:NO];

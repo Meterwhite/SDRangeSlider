@@ -38,7 +38,9 @@
         NSLog(@"User drag info: %@",values.description);
         info.text = [NSString stringWithFormat:@"Frame layout : %@",values.description];
     }];
-    
+    [slider eventValueWillChanged:^BOOL(SDRangeSlider * _Nonnull thisSlider) {
+        return NO;
+    }];
     
     #pragma mark - Autolayout
     __weak ViewController* weak_self = self;

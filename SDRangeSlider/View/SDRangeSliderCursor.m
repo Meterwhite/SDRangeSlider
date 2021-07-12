@@ -14,9 +14,9 @@
 
 @implementation SDRangeSliderCursor
 {
-    BOOL    _needRound;
-    UIColor*_disableBackgroundColor;
-    UIColor*_backgroundColor;
+    BOOL     _needRound;
+    UIColor *_disableBackgroundColor;
+    UIColor *_backgroundColor;
 }
 #define dMargin 4
 #define dShadowRadius 2
@@ -24,8 +24,8 @@
 #pragma mark - SDRangeSlider
 + (instancetype)defaultLeftButton:(CGFloat)itemSize
 {
-    SDRangeSliderCursor *ret = [SDRangeSliderCursor buttonWithType:UIButtonTypeCustom];
-    UIView *view = [UIView new];
+    SDRangeSliderCursor     *ret = [SDRangeSliderCursor buttonWithType:UIButtonTypeCustom];
+    UIView  *view = [UIView new];
     CGFloat scale = [UIScreen mainScreen].scale;
     view.backgroundColor = [UIColor clearColor];
     view.frame = CGRectMake(0, 0, itemSize*scale, itemSize*scale);
@@ -47,7 +47,7 @@
     [layerShadow addSublayer:layerBtn];
     [view.layer addSublayer:layerShadow];
     //截图(screenshots)
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, YES);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 3);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *buttonImg = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -59,7 +59,7 @@
 + (instancetype)defaultRightButton:(CGFloat)itemSize
 {
     SDRangeSliderCursor *ret = [SDRangeSliderCursor buttonWithType:UIButtonTypeCustom];
-    UIView *view = [UIView new];
+    UIView  *view = [UIView new];
     CGFloat scale = [UIScreen mainScreen].scale;
     view.backgroundColor = [UIColor clearColor];
     view.frame = CGRectMake(0, 0, itemSize*scale, itemSize*scale);
@@ -80,7 +80,7 @@
     layerBtn.borderWidth = 0.6;
     [layerShadow addSublayer:layerBtn];
     [view.layer addSublayer:layerShadow];
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, YES);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 3);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *buttonImg = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -203,7 +203,7 @@
 
 + (instancetype)buttonWithType:(UIButtonType)buttonType
 {
-    SDRangeSliderCursor* ret= [super buttonWithType:buttonType];
+    SDRangeSliderCursor *ret= [super buttonWithType:buttonType];
     ret->_isImageSizeFill   = NO;
     ret->_needRound         = NO;
     return ret;

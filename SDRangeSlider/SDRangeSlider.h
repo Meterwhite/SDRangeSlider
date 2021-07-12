@@ -11,11 +11,11 @@
 #import "SDRangeSliderValues.h"
 #import "SDRangeSliderPoints.h"
 
-@class RACSubject;
+@class RACSubject, SDRangeSlider;
 #pragma mark ------ SDRangeSliderViewDelegate
 @protocol SDRangeSliderViewDelegate <NSObject>
-- (void)rangeSliderValueDidChangedTo:(nonnull SDRangeSliderValues*)values;
-- (void)rangeSliderCursorOriginDidChangedTo:(nonnull SDRangeSliderPoints*)points;
+- (void)rangeSliderValueDidChangedTo:(nonnull SDRangeSliderValues *)values;
+- (void)rangeSliderCursorOriginDidChangedTo:(nonnull SDRangeSliderPoints *)points;
 @end
 
 #pragma mark ------ SDRangeSlider
@@ -35,7 +35,7 @@
 /**
  游标值改变时的回调(A callback that is triggered when the cursor moves)
  */
-- (nonnull instancetype)eventValueDidChanged:(void(^_Nonnull)(SDRangeSliderValues*_Nonnull values))block;
+- (nonnull instancetype)eventValueDidChanged:(void(^_Nonnull)(SDRangeSliderValues *_Nonnull values))block;
 
 /// 游标位置变化时的回调(Callback when the cursor position changes)
 /// @param view nil时为参考本控件的坐标系
